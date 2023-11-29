@@ -1,0 +1,27 @@
+{
+  "name": "@auth-test/core",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "drizzle:generate": "drizzle-kit generate:pg",
+    "drizzle:push": "tsx src/db/migrate.ts",
+    "test": "sst bind vitest",
+    "typecheck": "tsc -noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "sst": "^2.36.7",
+    "vitest": "^0.34.6"
+  },
+  "dependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
+    "@upstash/redis": "^1.25.1",
+    "dotenv": "^16.3.1",
+    "drizzle-kit": "^0.20.6",
+    "drizzle-orm": "^0.29.0",
+    "jsonwebtoken": "^9.0.2",
+    "postgres": "^3.4.3",
+    "tsx": "^4.6.0",
+    "zod": "^3.22.4"
+  }
+}
