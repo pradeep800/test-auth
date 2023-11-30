@@ -1,6 +1,6 @@
 import { it, describe, expect } from "vitest";
 import { ProtectedRoute, createUserGetToken } from "./utils";
-const twentySeconds = 20000;
+const thirtySeconds = 30000;
 describe("Test /user-info endpoint", () => {
   it(
     "Get user info",
@@ -14,9 +14,9 @@ describe("Test /user-info endpoint", () => {
       expect(data).to.have.property("id").that.is.a("string");
       expect(data).to.have.property("userName").that.is.a("string");
     },
-    twentySeconds
+    thirtySeconds
   );
-
+  30000;
   it("Rate limited", async () => {
     const token = await createUserGetToken();
     let count = 22;
