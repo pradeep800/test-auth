@@ -1,7 +1,6 @@
 import { expect, it, describe } from "vitest";
 
-import { v4 as uuidv4 } from "uuid";
-import { Logout, Register, createRandomUser, getExistingUser } from "./utils";
+import { Register, createRandomUser, getExistingUser } from "./utils";
 const twentySeconds = 20000;
 describe(
   "Test Register Api",
