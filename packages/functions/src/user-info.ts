@@ -17,7 +17,6 @@ export const handler = ApiHandler(async (event) => {
     if (payload === "error") {
       return createResponse(401, { message: "Unauthorized" });
     }
-
     const isRateLimited = await isKeyRateLimited(payload.email);
     if (isRateLimited) {
       return createResponse(429, { message: "Rate Limited" });

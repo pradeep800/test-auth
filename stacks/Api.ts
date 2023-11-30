@@ -4,11 +4,12 @@ import { Secret } from "./Secrets";
 export function API({ stack }: StackContext) {
   const secret = use(Secret);
   const api = new Api(stack, "api", {
+    
     routes: {
-      "POST /login": { function: "packages/functions/src/login.handler" },
+      "POST /login": { function: "packages/functions/src/login.handler", },
       "POST /register": { function: "packages/functions/src/register.handler" },
       "GET /logout": "packages/functions/src/logout.handler",
-      "GET /protected-route": "packages/functions/src/protected-route.handler",
+      "GET /user-info": "packages/functions/src/user-info.handler",
     },
   });
 

@@ -1,7 +1,7 @@
 import { it, describe, expect } from "vitest";
 import { ProtectedRoute, createUserGetToken } from "./utils";
 const twentySeconds = 20000;
-describe("Test Protect route api", () => {
+describe("Test /user-info endpoint", () => {
   it(
     "Get user info",
     async () => {

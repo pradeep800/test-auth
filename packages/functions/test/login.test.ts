@@ -2,7 +2,7 @@ import { expect, it, describe } from "vitest";
 
 import { Login, getExistingUser } from "./utils";
 const twentySeconds = 20000;
-describe("Test Login Api", () => {
+describe("Test /login endpoint", () => {
   it(
     "Successfully login",
     async () => {

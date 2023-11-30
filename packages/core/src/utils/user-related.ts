@@ -42,7 +42,12 @@ export const createUser = async (userInfo: UserInfo) => {
 
 export const getUserInfo = async (id: string) => {
   const userInfo = await db
-    .select({ id: users.id, email: users.email, name: users.name })
+    .select({
+      id: users.id,
+      email: users.email,
+      name: users.name,
+      userName: users.userName,
+    })
     .from(users)
     .where(eq(users.id, id));
   return userInfo[0];

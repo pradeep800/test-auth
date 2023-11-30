@@ -2,7 +2,7 @@ import { expect, it, describe } from "vitest";
 
 import { Register, createRandomUser, getExistingUser } from "./utils";
 const twentySeconds = 20000;
-describe("Test Register Api", async () => {
+describe("Test /register endpoint", async () => {
   it(
     "Successfully created account",
     async () => {

@@ -90,7 +90,7 @@ response
 }
 ```
 
-### /protected-route (GET) -> Only for authorize user
+### /user-info (GET) -> Only for authorize user
 
 parameters
 
@@ -137,7 +137,7 @@ pnpm run deploy-test
 
 ## Rate limiting strategy
 
-I am using the sliding window technique for rate limiting, In this within a specific time frame, a particular authenticated user is allowed to make a limited number of request. In our scenario, 20 requests per minute. In our API, the /protected-route is a rate-limited endpoint where we utilize the user's email as the key. We increment this key, and when the counter value reaches 20, we suspend further requests until the next minute.
+I am using the sliding window technique for rate limiting, In this within a specific time frame, a particular authenticated user is allowed to make a limited number of request. In our scenario, 20 requests per minute. In our API, the /user-info is a rate-limited endpoint where we utilize the user's email as the key. We increment this key, and when the counter value reaches 20, we suspend further requests until the next minute.
 
 ## deploying
 
