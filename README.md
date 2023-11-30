@@ -19,7 +19,7 @@ npx sst --stage dev secrets set REDIS_TOKEN <GET FROM GMAIL>
 npx sst --stage dev secrets set JWT_SECRET <GET FROM GMAIL>
 ```
 
-In you First terminal after 2-3 minute it will print url that url is your rest endpoint. Given below are things different endpoint does
+In your First terminal after 2-3 minute it will print url that url is you api rest endpoint. Below are the endpoints along with their respective operations:
 
 #### /register (POST) = For creating account
 
@@ -138,3 +138,13 @@ pnpm run deploy-test
 ## Rate limiting strategy
 
 I am using the sliding window technique for rate limiting, In this within a specific time frame, a particular authenticated user is allowed to make a limited number of request. In our scenario, 20 requests per minute. In our API, the /protected-route is a rate-limited endpoint where we utilize the user's email as the key. We increment this key, and when the counter value reaches 20, we suspend further requests until the next minute.
+
+## deploying
+
+```
+npx sst --stage prod secrets set DATABASE_URL <GET FROM GMAIL>
+npx sst --stage prod secrets set REDIS_URL <GET FROM GMAIL>
+npx sst --stage prod secrets set REDIS_TOKEN <GET FROM GMAIL>
+npx sst --stage prod secrets set JWT_SECRET <GET FROM GMAIL>
+pnpm sst deploy --stage prod
+```

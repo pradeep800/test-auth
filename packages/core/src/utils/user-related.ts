@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { db } from "../db/db";
 import { users } from "../db/schema";
 import { z } from "zod";
@@ -6,19 +6,14 @@ import { userInfoSchema } from "../zodSchema/user-info-schema";
 
 export const getUser = async (email: string) => {
   const userInfo = await db
-    .select({
-      id: users.id,
-      name: users.name,
-      email: users.email,
-      password: users.password,
-    })
+    .select()
     .from(users)
     .where(eq(users.email, email))
     .limit(1);
   return userInfo[0];
 };
 
-export const checkUserExits = async (email: string) => {
+export const checkUserExits = async (email: string, userName: string) => {
   const userInfo = await db
     .select({
       id: users.id,
@@ -27,7 +22,7 @@ export const checkUserExits = async (email: string) => {
       password: users.password,
     })
     .from(users)
-    .where(eq(users.email, email))
+    .where(or(eq(users.email, email), eq(users.userName, userName)))
     .limit(1);
   return userInfo.length !== 0;
 };
