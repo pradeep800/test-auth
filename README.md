@@ -1,5 +1,22 @@
 # Documentation
 
+## Deployed URL
+
+https://tx88nao1l4.execute-api.us-east-1.amazonaws.com
+
+## Simple Guide for checking correctness (without any credential or env)
+
+by following give below command you can see if all test are passing
+
+```
+git clone https://github.com/pradeep800/test-auth.git
+pnpm i
+cd packages/functions
+pnpm run deploy-test
+```
+
+api code is in packages/functions/src file and test are in packages/functions/test
+
 ## Running locally (aws credential needed)
 
 1. [Create I am User](https://sst.dev/chapters/create-an-iam-user.html)
