@@ -22,12 +22,20 @@ export const createJwt = async (
   }
   throw new Error("Id is not present");
 };
-export const verifyJWT = (authToken: string) => {
+export const verifyJWT = async (authToken: string) => {
   let payload: JwtPayload | string;
 
   try {
     payload = jwt.verify(authToken, Config.JWT_SECRET);
     const userinfo = jwtSchema.parse(payload);
+    const tokenInfo = await db
+      .select()
+      .from(verificationToken)
+      .where(eq(verificationToken.token, authToken))
+      .limit(1);
+    if (tokenInfo.length === 0) {
+      throw new Error("token is deleted");
+    }
     return userinfo;
   } catch (err) {
     return "error" as const;
@@ -35,10 +43,7 @@ export const verifyJWT = (authToken: string) => {
 };
 
 export const deleteJWT = async (authToken: string) => {
-  const number = (
-    await db
-      .delete(verificationToken)
-      .where(eq(verificationToken.token, authToken))
-  ).count;
-  return number;
+  await db
+    .delete(verificationToken)
+    .where(eq(verificationToken.token, authToken));
 };

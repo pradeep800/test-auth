@@ -1,8 +1,8 @@
 import { expect, it, describe } from "vitest";
-import { Login } from "./utils";
+import { Login, ProtectedRoute } from "./utils";
 import { Logout } from "./utils";
 
-const tenSecond = 10000;
+const twentySeconds = 20000;
 describe("Test Logout Api", () => {
   it(
     "Successfully logout",
@@ -17,8 +17,9 @@ describe("Test Logout Api", () => {
       expect(res).to.have.property("status").eq(200);
       expect(logoutData).to.have.property("message").eq("Successfully Logout");
     },
-    tenSecond
+    twentySeconds
   );
+
   it(
     "Wrong authentication Token",
     async () => {
@@ -26,10 +27,11 @@ describe("Test Logout Api", () => {
       expect(res).to.have.property("status").eq(401);
       expect(logoutData).to.have.property("message").eq("Unauthorized");
     },
-    tenSecond
+    twentySeconds
   );
+
   it(
-    "Already logout",
+    "After logout cannot use token",
     async () => {
       const email = "27ef7f08-3@gmail.com";
       const password = "27ef7f08-3#2";
@@ -37,10 +39,10 @@ describe("Test Logout Api", () => {
       const { token } = logInData as { token: string };
 
       await Logout(token);
-      const { res, data } = await Logout(token);
-      expect(res).to.have.property("status").eq(200);
-      expect(data).to.have.property("message").eq("Already Logout");
+      const { data, res } = await ProtectedRoute(token);
+      expect(res).to.have.property("status").eq(401);
+      expect(data).to.have.property("message").eq("Unauthorized");
     },
-    tenSecond
+    twentySeconds
   );
 });

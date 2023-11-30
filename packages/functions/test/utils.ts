@@ -1,7 +1,10 @@
 import { Config } from "sst/node/config";
-const url = Config.APP_URL;
-export async function Sigin(userInfo: Record<string, string>) {
-  const res = await fetch(url + "/signin", {
+import { v4 as uuidv4 } from "uuid";
+
+const url =
+  Config.APP_URL ?? "https://xxp5iu4cw1.execute-api.us-east-1.amazonaws.com";
+export async function Register(userInfo: Record<string, string>) {
+  const res = await fetch(url + "/register", {
     method: "POST",
     body: JSON.stringify({ ...userInfo }),
   });
@@ -30,4 +33,12 @@ export async function ProtectedRoute(token: string) {
   });
   const data = await res.json();
   return { res, data };
+}
+export async function createUserGetToken() {
+  const name = uuidv4();
+  const email = name + "@gmail.com";
+  const password = name.slice(0, 12) + "#2";
+  const { data } = await Register({ email, password, name });
+  const { token } = data as { token: string };
+  return token;
 }

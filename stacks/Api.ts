@@ -6,7 +6,7 @@ export function API({ stack }: StackContext) {
   const api = new Api(stack, "api", {
     routes: {
       "POST /login": { function: "packages/functions/src/login.handler" },
-      "POST /signin": { function: "packages/functions/src/signin.handler" },
+      "POST /register": { function: "packages/functions/src/register.handler" },
       "GET /logout": "packages/functions/src/logout.handler",
       "GET /protected-route": "packages/functions/src/protected-route.handler",
     },

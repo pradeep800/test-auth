@@ -1,10 +1,10 @@
 import { expect, it, describe } from "vitest";
 
 import { v4 as uuidv4 } from "uuid";
-import { Logout, Sigin } from "./utils";
-const tenSecond = 10000;
+import { Logout, Register } from "./utils";
+const twentySeconds = 20000;
 describe(
-  "Test Signin Api",
+  "Test Register Api",
   async () => {
     it(
       "Successfully created account",
@@ -12,31 +12,31 @@ describe(
         const name = uuidv4();
         const email = name + "@gmail.com";
         const password = name.slice(0, 12) + "#2";
-        const { res, data } = await Sigin({ email, password, name });
+        const { res, data } = await Register({ email, password, name });
         expect(res).to.have.property("status").eq(200);
 
         expect(data).to.have.property("token").that.is.a("string");
       },
-      tenSecond
+      twentySeconds
     );
 
     it("Weak password", async () => {
       const name = "pradeep";
       const email = "pradeep@gmail.com";
       const password = "weakpassword";
-      const { res, data } = await Sigin({ email, password, name });
+      const { res, data } = await Register({ email, password, name });
       expect(res).to.have.property("status").eq(400);
       expect(data).to.have.property("message").contain("Weak Password");
     });
 
-    it("Weak password", async () => {
+    it("Mail already in use", async () => {
       const name = "pradeep";
       const email = "0e1977cb204a@gmail.com";
       const password = "password*3*";
-      const { res, data } = await Sigin({ email, password, name });
+      const { res, data } = await Register({ email, password, name });
       expect(res).to.have.property("status").eq(409);
       expect(data).to.have.property("message").eq("Mail Already In Use");
     });
   },
-  tenSecond
+  twentySeconds
 );
