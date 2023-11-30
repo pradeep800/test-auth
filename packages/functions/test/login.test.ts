@@ -8,6 +8,7 @@ describe("Test Login Api", () => {
     async () => {
       const { email, password } = getExistingUser();
       const { res, data } = await Login({ email, password });
+
       expect(res).to.have.property("status").eq(200);
       expect(data).to.have.property("token").that.is.a("string");
     },
@@ -32,6 +33,7 @@ describe("Test Login Api", () => {
       const { email } = getExistingUser();
       const password = "wrong password";
       const { data, res } = await Login({ email, password });
+
       expect(res).to.have.property("status").eq(401);
       expect(data).to.have.property("message").eq("Wrong Password");
     },

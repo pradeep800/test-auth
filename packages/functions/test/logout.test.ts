@@ -12,7 +12,7 @@ describe("Test Logout Api", () => {
       const { token } = logInData as { token: string };
 
       const { res, data: logoutData } = await Logout(token);
-
+      console.log(logoutData);
       expect(res).to.have.property("status").eq(200);
       expect(logoutData).to.have.property("message").eq("Successfully Logout");
     },

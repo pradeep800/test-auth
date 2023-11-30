@@ -141,6 +141,8 @@ I am using the sliding window technique for rate limiting, In this within a spec
 
 ## deploying
 
+after configuring aws cli execute these line of command one by one
+
 ```
 npx sst --stage prod secrets set DATABASE_URL <GET FROM GMAIL>
 npx sst --stage prod secrets set REDIS_URL <GET FROM GMAIL>

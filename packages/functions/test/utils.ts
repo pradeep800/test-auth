@@ -13,6 +13,7 @@ export async function Register(userInfo: Record<string, string>) {
   return { res, data };
 }
 export async function Logout(token: string) {
+  console.log(url);
   const res = await fetch(url + "/logout", {
     headers: { Authorization: "Bearer " + token },
   });
