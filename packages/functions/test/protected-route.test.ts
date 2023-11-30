@@ -1,5 +1,5 @@
 import { it, describe, expect } from "vitest";
-import { Login, ProtectedRoute, Register, createUserGetToken } from "./utils";
+import { ProtectedRoute, createUserGetToken } from "./utils";
 const twentySeconds = 20000;
 describe("Test Protect route api", () => {
   it(
@@ -12,16 +12,17 @@ describe("Test Protect route api", () => {
       expect(data).to.have.property("email").that.is.a("string");
       expect(data).to.have.property("name").that.is.a("string");
       expect(data).to.have.property("id").that.is.a("string");
+      expect(data).to.have.property("userName").that.is.a("string");
     },
     twentySeconds
   );
 
   it("Rate limited", async () => {
     const token = await createUserGetToken();
-    let count = 21;
+    let count = 22;
     let interval: NodeJS.Timeout;
 
-    /// making fetch call 21 times and the limit of api is 20 per minute so it will start rate limiting it after 20 api calls
+    /// making fetch call 22 times and the limit of api is 20 per minute so it will start rate limiting it after 20 api calls
     await new Promise((resolve) => {
       interval = setInterval(async () => {
         if (count === 0) {
@@ -31,6 +32,7 @@ describe("Test Protect route api", () => {
         const { data, res } = await ProtectedRoute(token);
         const { message } = data as { message: string };
         const { status } = res;
+
         if (status === 429 && message === "Rate Limited") {
           clearInterval(interval);
           resolve("");
@@ -38,6 +40,7 @@ describe("Test Protect route api", () => {
         count--;
       }, 1000);
     });
+
     if (count === 0) {
       expect.fail("rate limitation is not working");
     } else {

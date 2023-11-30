@@ -1,7 +1,7 @@
 import { expect, it, describe } from "vitest";
 
 import { v4 as uuidv4 } from "uuid";
-import { Logout, Register } from "./utils";
+import { Logout, Register, createRandomUser, getExistingUser } from "./utils";
 const twentySeconds = 20000;
 describe(
   "Test Register Api",
@@ -9,10 +9,13 @@ describe(
     it(
       "Successfully created account",
       async () => {
-        const name = uuidv4();
-        const email = name + "@gmail.com";
-        const password = name.slice(0, 12) + "#2";
-        const { res, data } = await Register({ email, password, name });
+        const { email, name, password, userName } = createRandomUser();
+        const { res, data } = await Register({
+          email,
+          password,
+          name,
+          userName,
+        });
         expect(res).to.have.property("status").eq(200);
 
         expect(data).to.have.property("token").that.is.a("string");
@@ -21,21 +24,44 @@ describe(
     );
 
     it("Weak password", async () => {
-      const name = "pradeep";
-      const email = "pradeep@gmail.com";
+      let { email, name, userName } = createRandomUser();
       const password = "weakpassword";
-      const { res, data } = await Register({ email, password, name });
+
+      const { res, data } = await Register({ email, password, name, userName });
       expect(res).to.have.property("status").eq(400);
       expect(data).to.have.property("message").contain("Weak Password");
     });
 
-    it("Mail already in use", async () => {
-      const name = "pradeep";
-      const email = "0e1977cb204a@gmail.com";
-      const password = "password*3*";
-      const { res, data } = await Register({ email, password, name });
-      expect(res).to.have.property("status").eq(409);
-      expect(data).to.have.property("message").eq("Mail Already In Use");
+    describe("Mail or userName already in use ", async () => {
+      it("mail", async () => {
+        const { email, name, password } = getExistingUser();
+        const userName = "newUserName";
+        const { res, data } = await Register({
+          email,
+          password,
+          name,
+          userName,
+        });
+        expect(res).to.have.property("status").eq(409);
+        expect(data)
+          .to.have.property("message")
+          .eq("Mail Or Username Already In Use");
+      });
+      it("userName", async () => {
+        const { name, password, userName } = getExistingUser();
+        const email = "newEmail@gmail.com";
+        const { res, data } = await Register({
+          email,
+          password,
+          name,
+          userName,
+        });
+
+        expect(res).to.have.property("status").eq(409);
+        expect(data)
+          .to.have.property("message")
+          .eq("Mail Or Username Already In Use");
+      });
     });
   },
   twentySeconds

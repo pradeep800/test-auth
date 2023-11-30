@@ -1,5 +1,5 @@
 import { expect, it, describe } from "vitest";
-import { Login, ProtectedRoute } from "./utils";
+import { Login, ProtectedRoute, getExistingUser } from "./utils";
 import { Logout } from "./utils";
 
 const twentySeconds = 20000;
@@ -7,8 +7,7 @@ describe("Test Logout Api", () => {
   it(
     "Successfully logout",
     async () => {
-      const email = "27ef7f08-3@gmail.com";
-      const password = "27ef7f08-3#2";
+      const { email, password } = getExistingUser();
       const { data: logInData } = await Login({ email, password });
       const { token } = logInData as { token: string };
 
@@ -33,8 +32,7 @@ describe("Test Logout Api", () => {
   it(
     "After logout cannot use token",
     async () => {
-      const email = "27ef7f08-3@gmail.com";
-      const password = "27ef7f08-3#2";
+      const { email, password } = getExistingUser();
       const { data: logInData } = await Login({ email, password });
       const { token } = logInData as { token: string };
 

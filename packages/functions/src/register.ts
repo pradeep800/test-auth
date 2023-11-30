@@ -26,11 +26,14 @@ export const handler = ApiHandler(async (event) => {
       });
     }
 
-    const userExits = await checkUserExits(userInfo.data.email);
+    const userExits = await checkUserExits(
+      userInfo.data.email,
+      userInfo.data.userName
+    );
 
     if (userExits) {
       return createResponse(409, {
-        message: "Mail Already In Use",
+        message: "Mail Or Username Already In Use",
       });
     }
 
@@ -39,7 +42,11 @@ export const handler = ApiHandler(async (event) => {
     const userId = await createUser({ ...userInfo.data, password: hashPass });
 
     const token = await createJwt(
-      { id: userId, email: userInfo.data.email, name: userInfo.data.name },
+      {
+        id: userId,
+        email: userInfo.data.email,
+        userName: userInfo.data.userName,
+      },
       "7d"
     );
     return createResponse(200, { token: token });

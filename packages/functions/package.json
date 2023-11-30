@@ -5,7 +5,7 @@
   "scripts": {
     "test": "sst bind vitest",
     "typecheck": "tsc -noEmit",
-    "local-test": "vitest"
+    "deploy-test": "vitest"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.129",

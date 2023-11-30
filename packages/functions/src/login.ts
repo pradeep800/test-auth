@@ -27,7 +27,7 @@ export const handler = ApiHandler(async (event) => {
     }
 
     const jwtToken = await createJwt(
-      { name: dbUser.name, id: dbUser.id, email: dbUser.email },
+      { userName: dbUser.userName, id: dbUser.id, email: dbUser.email },
       "7d"
     );
 

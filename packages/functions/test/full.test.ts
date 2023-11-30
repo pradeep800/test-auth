@@ -1,18 +1,22 @@
 import { expect, it } from "vitest";
-import { Login, Logout, ProtectedRoute, Register } from "./utils";
-import { v4 as uuidv4 } from "uuid";
+import {
+  Login,
+  Logout,
+  ProtectedRoute,
+  Register,
+  createRandomUser,
+} from "./utils";
 const thirtySeconds = 30000;
 it(
   "Full authentication flow",
   async () => {
     //create user
-    const name = uuidv4();
-    const email = name + "@gmail.com";
-    const password = name.slice(0, 12) + "#2";
+    const { email, password, userName, name } = createRandomUser();
     const { res: signInResponse, data: signInData } = await Register({
       email,
       password,
       name,
+      userName,
     });
     expect(signInResponse).to.have.property("status").eq(200);
     expect(signInData).to.have.property("token").that.is.a("string");
@@ -33,6 +37,7 @@ it(
     expect(protectedRouteData).to.have.property("email").that.is.a("string");
     expect(protectedRouteData).to.have.property("name").that.is.a("string");
     expect(protectedRouteData).to.have.property("id").that.is.a("string");
+    expect(protectedRouteData).to.have.property("userName").that.is.a("string");
 
     //Logout from account
     const { data: logoutData, res: logoutResponse } = await Logout(token);
