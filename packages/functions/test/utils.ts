@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 //if you are running this in locally with live server uncomment down below line and comment line number 6 (pnpm run test)
 // const url = Config.APP_URL;
 // if you are running deployed code uncomment down below line and comment line 4(pnpm run deploy-test)
-const url = "https://tx88nao1l4.execute-api.us-east-1.amazonaws.com";
+const url = "https://vk5lshji18.execute-api.ap-south-1.amazonaws.com";
 export async function Register(userInfo: Record<string, string>) {
   const res = await fetch(url + "/register", {
     method: "POST",
