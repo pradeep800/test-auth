@@ -11,7 +11,7 @@ export const handler = ApiHandler(async (event) => {
     ) {
       return createResponse(401, { message: "Unauthorized" });
     }
-    const authToken = event["headers"]["authorization"].split(" ")[1] as string;
+    const authToken = event["headers"]["authorization"].split(" ")[1] as string; //bearer token
     //check token info
     let payload = await verifyJWT(authToken);
     if (payload === "error") {

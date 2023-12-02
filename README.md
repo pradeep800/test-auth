@@ -2,7 +2,7 @@
 
 ## Deployed URL
 
-https://tx88nao1l4.execute-api.us-east-1.amazonaws.com
+https://vk5lshji18.execute-api.ap-south-1.amazonaws.com
 
 ## Simple Guide for checking correctness (without any credential or env)
 
