@@ -23,17 +23,9 @@ api code is in packages/functions/src file and test are in packages/functions/te
 2. [Configure the aws cli](https://sst.dev/chapters/configure-the-aws-cli.html/)
 
 ```
+create .env file in root directory and put .env.example environment variable to .env
 pnpm i
 pnpm run dev --stage dev
-```
-
-Open Second terminal (run one by one);
-
-```
-npx sst --stage dev secrets set DATABASE_URL <GET FROM GMAIL>
-npx sst --stage dev secrets set REDIS_URL <GET FROM GMAIL>
-npx sst --stage dev secrets set REDIS_TOKEN <GET FROM GMAIL>
-npx sst --stage dev secrets set JWT_SECRET <GET FROM GMAIL>
 ```
 
 In your First terminal after 2-3 minute it will print url that url is you api rest endpoint. Below are the endpoints along with their respective operations:
@@ -161,9 +153,6 @@ I am using the sliding window technique for rate limiting, In this within a spec
 after configuring aws cli execute these line of command one by one
 
 ```
-npx sst --stage prod secrets set DATABASE_URL <GET FROM GMAIL>
-npx sst --stage prod secrets set REDIS_URL <GET FROM GMAIL>
-npx sst --stage prod secrets set REDIS_TOKEN <GET FROM GMAIL>
-npx sst --stage prod secrets set JWT_SECRET <GET FROM GMAIL>
+create .env file in root directory and put .env.example environment variable to .env
 pnpm sst deploy --stage prod
 ```
